@@ -2,15 +2,14 @@
 
 import { layout, prepare } from "@chenglou/pretext";
 import { useMemo, useState } from "react";
+import { useLocaleContext } from "@/components/LocaleProvider";
 import { DEMO_FONT } from "@/lib/site";
 
-const SAMPLE =
-  "Pretext 可在不触碰 DOM 的情况下计算多行文本高度，适合虚拟列表与防布局抖动。AGI 春天到了. بدأت الرحلة 🚀";
-
 function MeasureDemo() {
+  const { messages: dict } = useLocaleContext();
   const [maxWidth, setMaxWidth] = useState(320);
   const [lineHeight, setLineHeight] = useState(24);
-  const [text, setText] = useState(SAMPLE);
+  const [text, setText] = useState(() => dict.demoSamples.measure);
 
   const prepared = useMemo(() => prepare(text, DEMO_FONT), [text]);
   const { height, lineCount } = useMemo(
@@ -18,11 +17,18 @@ function MeasureDemo() {
     [prepared, maxWidth, lineHeight],
   );
 
+  const resultText = dict.demoUi.layoutResultFmt
+    .replace("{h}", height.toFixed(1))
+    .replace("{n}", String(lineCount));
+
   return (
     <div className="space-y-6 rounded-xl border border-zinc-200 bg-zinc-50/50 p-6 dark:border-zinc-800 dark:bg-zinc-900/30">
       <div>
-        <label htmlFor="measure-text" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          文本
+        <label
+          htmlFor="measure-text"
+          className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300"
+        >
+          {dict.demoUi.textLabel}
         </label>
         <textarea
           id="measure-text"
@@ -34,8 +40,11 @@ function MeasureDemo() {
       </div>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="measure-width" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>最大宽度（px）</span>
+          <label
+            htmlFor="measure-width"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.maxWidth}</span>
             <span className="tabular-nums text-zinc-500">{maxWidth}</span>
           </label>
           <input
@@ -49,8 +58,11 @@ function MeasureDemo() {
           />
         </div>
         <div>
-          <label htmlFor="measure-lh" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>行高（px）</span>
+          <label
+            htmlFor="measure-lh"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.lineHeight}</span>
             <span className="tabular-nums text-zinc-500">{lineHeight}</span>
           </label>
           <input
@@ -65,9 +77,11 @@ function MeasureDemo() {
         </div>
       </div>
       <output className="block rounded-lg border border-emerald-200 bg-emerald-50/80 px-4 py-3 text-sm dark:border-emerald-900/50 dark:bg-emerald-950/30">
-        <span className="font-medium text-emerald-900 dark:text-emerald-200">layout() 结果：</span>{" "}
+        <span className="font-medium text-emerald-900 dark:text-emerald-200">
+          {dict.demoUi.layoutResult}
+        </span>{" "}
         <span className="tabular-nums text-emerald-800 dark:text-emerald-300">
-          总高度 {height.toFixed(1)} px，共 {lineCount} 行
+          {resultText}
         </span>
       </output>
     </div>

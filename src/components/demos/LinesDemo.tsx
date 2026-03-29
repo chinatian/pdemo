@@ -2,14 +2,14 @@
 
 import { layoutWithLines, prepareWithSegments } from "@chenglou/pretext";
 import { useMemo, useState } from "react";
+import { useLocaleContext } from "@/components/LocaleProvider";
 import { DEMO_FONT } from "@/lib/site";
 
-const SAMPLE = "第一行与第二行会按最大宽度自动折行。Numbers 123 与 emoji 🎨 同样参与排版。";
-
 function LinesDemo() {
+  const { messages: dict } = useLocaleContext();
   const [maxWidth, setMaxWidth] = useState(280);
   const [lineHeight, setLineHeight] = useState(26);
-  const [text, setText] = useState(SAMPLE);
+  const [text, setText] = useState(() => dict.demoSamples.lines);
 
   const prepared = useMemo(
     () => prepareWithSegments(text, DEMO_FONT),
@@ -20,11 +20,18 @@ function LinesDemo() {
     [prepared, maxWidth, lineHeight],
   );
 
+  const footer = dict.demoUi.linesTotalFmt
+    .replace("{n}", String(result.lineCount))
+    .replace("{h}", result.height.toFixed(1));
+
   return (
     <div className="space-y-6 rounded-xl border border-zinc-200 bg-zinc-50/50 p-6 dark:border-zinc-800 dark:bg-zinc-900/30">
       <div>
-        <label htmlFor="lines-text" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          文本
+        <label
+          htmlFor="lines-text"
+          className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300"
+        >
+          {dict.demoUi.textLabel}
         </label>
         <textarea
           id="lines-text"
@@ -36,8 +43,11 @@ function LinesDemo() {
       </div>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="lines-width" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>最大宽度（px）</span>
+          <label
+            htmlFor="lines-width"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.maxWidth}</span>
             <span className="tabular-nums text-zinc-500">{maxWidth}</span>
           </label>
           <input
@@ -51,8 +61,11 @@ function LinesDemo() {
           />
         </div>
         <div>
-          <label htmlFor="lines-lh" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>行高（px）</span>
+          <label
+            htmlFor="lines-lh"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.lineHeight}</span>
             <span className="tabular-nums text-zinc-500">{lineHeight}</span>
           </label>
           <input
@@ -71,7 +84,7 @@ function LinesDemo() {
         style={{ maxWidth }}
       >
         <div className="border-b border-zinc-200 px-3 py-2 text-xs text-zinc-500 dark:border-zinc-800">
-          layoutWithLines — 每行宽度 {maxWidth}px
+          {dict.demoUi.linesHeaderFmt.replace("{w}", String(maxWidth))}
         </div>
         <div className="p-3 font-sans text-base text-zinc-900 dark:text-zinc-100">
           {result.lines.map((line, i) => (
@@ -81,17 +94,20 @@ function LinesDemo() {
               className="border-b border-dashed border-zinc-100 last:border-0 dark:border-zinc-800/80"
             >
               <span className="text-zinc-400 dark:text-zinc-600">{i + 1}. </span>
-              {line.text || <span className="text-zinc-400">（空行）</span>}
+              {line.text || (
+                <span className="text-zinc-400">{dict.demoUi.emptyLine}</span>
+              )}
               <span className="ml-2 text-xs tabular-nums text-zinc-400">
-                {line.width.toFixed(1)}px
+                {dict.demoUi.lineWidthFmt.replace(
+                  "{w}",
+                  line.width.toFixed(1),
+                )}
               </span>
             </div>
           ))}
         </div>
       </div>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        共 {result.lineCount} 行，总高度 {result.height.toFixed(1)} px。
-      </p>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">{footer}</p>
     </div>
   );
 }

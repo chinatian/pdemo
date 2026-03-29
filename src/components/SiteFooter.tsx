@@ -1,19 +1,17 @@
 import Link from "next/link";
-import { GITHUB_PRETEXT, NPM_PRETEXT, SITE_NAME } from "@/lib/site";
+import { GITHUB_PRETEXT, NPM_PRETEXT } from "@/lib/site";
+import type { Messages } from "@/i18n/types";
 
-export function SiteFooter() {
+export function SiteFooter({ dict }: { dict: Messages }) {
   return (
     <footer className="mt-auto border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-md space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
             <p className="font-medium text-zinc-800 dark:text-zinc-200">
-              {SITE_NAME}
+              {dict.meta.siteName}
             </p>
-            <p>
-              本站为社区整理的介绍与演示页面，并非 Pretext
-              官方站点。库作者为 Cheng Lou，源码以 MIT 许可发布。
-            </p>
+            <p>{dict.footer.disclaimer}</p>
           </div>
           <ul className="flex flex-col gap-2 text-sm sm:items-end">
             <li>
@@ -23,7 +21,7 @@ export function SiteFooter() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                GitHub：chenglou/pretext
+                {dict.footer.githubLabel}
               </Link>
             </li>
             <li>
@@ -33,13 +31,13 @@ export function SiteFooter() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                npm：@chenglou/pretext
+                {dict.footer.npmLabel}
               </Link>
             </li>
           </ul>
         </div>
         <p className="mt-8 text-xs text-zinc-500 dark:text-zinc-500">
-          © {new Date().getFullYear()} {SITE_NAME}
+          © {new Date().getFullYear()} {dict.meta.siteName}
         </p>
       </div>
     </footer>

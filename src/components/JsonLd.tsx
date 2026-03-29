@@ -1,4 +1,4 @@
-import { GITHUB_PRETEXT, SITE_NAME, getSiteUrl } from "@/lib/site";
+import { GITHUB_PRETEXT, getSiteUrl } from "@/lib/site";
 
 export function JsonLd() {
   const url = getSiteUrl().origin;
@@ -7,11 +7,11 @@ export function JsonLd() {
     "@graph": [
       {
         "@type": "WebSite",
-        name: SITE_NAME,
+        name: "Pretext Guide / Pretext 指南",
         url,
         description:
-          "Pretext 多行文本测量与排版库的中文介绍、API 说明与交互演示。",
-        inLanguage: "zh-CN",
+          "Bilingual guide and live demos for Pretext: multiline text measurement and layout without DOM reflow (中文 / English).",
+        inLanguage: ["zh-CN", "en"],
       },
       {
         "@type": "SoftwareSourceCode",

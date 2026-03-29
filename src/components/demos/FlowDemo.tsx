@@ -7,10 +7,8 @@ import {
   type LayoutLine,
 } from "@chenglou/pretext";
 import { useMemo, useState } from "react";
+import { useLocaleContext } from "@/components/LocaleProvider";
 import { DEMO_FONT } from "@/lib/site";
-
-const SAMPLE =
-  "模拟「一侧有浮层」时每一行可用宽度不同：前几行较窄，之后恢复全宽。文本会继续按当前行的 maxWidth 排版。";
 
 function collectLines(
   prepared: ReturnType<typeof prepareWithSegments>,
@@ -33,11 +31,15 @@ function collectLines(
 }
 
 function FlowDemo() {
+  const { messages: dict } = useLocaleContext();
   const [fullWidth, setFullWidth] = useState(400);
   const [narrowWidth, setNarrowWidth] = useState(220);
   const [narrowLines, setNarrowLines] = useState(3);
   const [lineHeight, setLineHeight] = useState(24);
-  const [text, setText] = useState(SAMPLE);
+  const [text, setText] = useState(() => dict.demoSamples.flow);
+
+  const maxNarrow = Math.max(120, fullWidth - 40);
+  const effectiveNarrow = Math.min(narrowWidth, maxNarrow);
 
   const prepared = useMemo(
     () => prepareWithSegments(text, DEMO_FONT),
@@ -45,15 +47,23 @@ function FlowDemo() {
   );
 
   const lines = useMemo(
-    () => collectLines(prepared, narrowLines, narrowWidth, fullWidth),
-    [prepared, narrowLines, narrowWidth, fullWidth],
+    () => collectLines(prepared, narrowLines, effectiveNarrow, fullWidth),
+    [prepared, narrowLines, effectiveNarrow, fullWidth],
   );
+
+  const headerText = dict.demoUi.flowHeaderFmt
+    .replace("{n}", String(narrowLines))
+    .replace("{nw}", String(effectiveNarrow))
+    .replace("{fw}", String(fullWidth));
 
   return (
     <div className="space-y-6 rounded-xl border border-zinc-200 bg-zinc-50/50 p-6 dark:border-zinc-800 dark:bg-zinc-900/30">
       <div>
-        <label htmlFor="flow-text" className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          文本
+        <label
+          htmlFor="flow-text"
+          className="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300"
+        >
+          {dict.demoUi.textLabel}
         </label>
         <textarea
           id="flow-text"
@@ -65,8 +75,11 @@ function FlowDemo() {
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="flow-full" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>全宽（px）</span>
+          <label
+            htmlFor="flow-full"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.flowFullWidth}</span>
             <span className="tabular-nums text-zinc-500">{fullWidth}</span>
           </label>
           <input
@@ -75,28 +88,39 @@ function FlowDemo() {
             min={280}
             max={560}
             value={fullWidth}
-            onChange={(e) => setFullWidth(Number(e.target.value))}
+            onChange={(e) => {
+              const v = Number(e.target.value);
+              setFullWidth(v);
+              const m = Math.max(120, v - 40);
+              setNarrowWidth((w) => Math.min(w, m));
+            }}
             className="w-full accent-emerald-600"
           />
         </div>
         <div>
-          <label htmlFor="flow-narrow" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>窄宽（px）</span>
-            <span className="tabular-nums text-zinc-500">{narrowWidth}</span>
+          <label
+            htmlFor="flow-narrow"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.flowNarrowWidth}</span>
+            <span className="tabular-nums text-zinc-500">{effectiveNarrow}</span>
           </label>
           <input
             id="flow-narrow"
             type="range"
             min={120}
-            max={fullWidth - 40}
-            value={narrowWidth}
+            max={maxNarrow}
+            value={Math.min(narrowWidth, maxNarrow)}
             onChange={(e) => setNarrowWidth(Number(e.target.value))}
             className="w-full accent-emerald-600"
           />
         </div>
         <div>
-          <label htmlFor="flow-count" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>前几行用窄宽</span>
+          <label
+            htmlFor="flow-count"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.flowNarrowLines}</span>
             <span className="tabular-nums text-zinc-500">{narrowLines}</span>
           </label>
           <input
@@ -110,8 +134,11 @@ function FlowDemo() {
           />
         </div>
         <div>
-          <label htmlFor="flow-lh" className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            <span>行高（px）</span>
+          <label
+            htmlFor="flow-lh"
+            className="mb-2 flex justify-between text-sm font-medium text-zinc-700 dark:text-zinc-300"
+          >
+            <span>{dict.demoUi.lineHeight}</span>
             <span className="tabular-nums text-zinc-500">{lineHeight}</span>
           </label>
           <input
@@ -127,12 +154,11 @@ function FlowDemo() {
       </div>
       <div className="overflow-x-auto rounded-lg border border-zinc-300 bg-white dark:border-zinc-700 dark:bg-zinc-950">
         <div className="border-b border-zinc-200 px-3 py-2 text-xs text-zinc-500 dark:border-zinc-800">
-          layoutNextLine — 前 {narrowLines} 行宽度 {narrowWidth}px，其余 {fullWidth}px
+          {headerText}
         </div>
         <div className="p-3 font-sans text-base text-zinc-900 dark:text-zinc-100">
           {lines.map((line, i) => {
-            const used =
-              i < narrowLines ? narrowWidth : fullWidth;
+            const used = i < narrowLines ? effectiveNarrow : fullWidth;
             const tint =
               i < narrowLines
                 ? "bg-amber-50/80 dark:bg-amber-950/20"
@@ -145,9 +171,9 @@ function FlowDemo() {
               >
                 <span
                   className="inline-block shrink-0 text-xs tabular-nums text-zinc-400"
-                  style={{ width: 36 }}
+                  style={{ width: 48 }}
                 >
-                  {used}px
+                  {dict.demoUi.lineWidthFmt.replace("{w}", String(used))}
                 </span>
                 <span className="min-w-0 flex-1">{line.text}</span>
               </div>

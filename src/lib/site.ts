@@ -1,4 +1,4 @@
-export const SITE_NAME = "Pretext 指南";
+import type { Locale } from "@/i18n/config";
 
 export function getSiteUrl(): URL {
   const raw =
@@ -13,3 +13,30 @@ export const NPM_PRETEXT = "https://www.npmjs.com/package/@chenglou/pretext";
 /** Canvas `font` string aligned with page typography (Geist via Next font). */
 export const DEMO_FONT =
   '16px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+/** Path after locale, e.g. "" for home, "/guide" for guide. */
+export function canonicalUrl(locale: Locale, pathAfterLocale: string): string {
+  const base = getSiteUrl().origin;
+  const p =
+    pathAfterLocale === "" || pathAfterLocale === "/"
+      ? ""
+      : pathAfterLocale.startsWith("/")
+        ? pathAfterLocale
+        : `/${pathAfterLocale}`;
+  return `${base}/${locale}${p}`;
+}
+
+export function hreflangAlternates(pathAfterLocale: string): Record<string, string> {
+  const p =
+    pathAfterLocale === "" || pathAfterLocale === "/"
+      ? ""
+      : pathAfterLocale.startsWith("/")
+        ? pathAfterLocale
+        : `/${pathAfterLocale}`;
+  const base = getSiteUrl().origin;
+  return {
+    "zh-CN": `${base}/zh${p}`,
+    en: `${base}/en${p}`,
+    "x-default": `${base}/en${p}`,
+  };
+}
