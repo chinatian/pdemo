@@ -8,7 +8,16 @@ export function getSiteUrl(): URL {
 }
 
 export const GITHUB_PRETEXT = "https://github.com/chenglou/pretext";
+export const GITHUB_PRETEXT_BUILDER =
+  "https://github.com/Cactusinhand/pretext-builder";
 export const NPM_PRETEXT = "https://www.npmjs.com/package/@chenglou/pretext";
+
+/** Community Breakout-style demo showcasing dynamic Pretext layout. */
+export const PRETEXT_BREAKER_DEMO_URL = "https://pretext-breaker.netlify.app/";
+
+/** Interactive manuscript-style text experience (Neither/Nor). */
+export const ILLUSTRATED_MANUSCRIPT_DEMO_URL =
+  "https://illustrated-manuscript.vercel.app/";
 
 /** Canvas `font` string aligned with page typography (Geist via Next font). */
 export const DEMO_FONT =

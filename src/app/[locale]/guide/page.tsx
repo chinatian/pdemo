@@ -4,7 +4,11 @@ import { PageIntro } from "@/components/PageIntro";
 import { ProseBlocks } from "@/components/ProseBlocks";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { canonicalUrl, hreflangAlternates } from "@/lib/site";
+import {
+  canonicalUrl,
+  GITHUB_PRETEXT_BUILDER,
+  hreflangAlternates,
+} from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -33,6 +37,18 @@ export default async function GuidePage({ params }: Props) {
       <PageIntro title={g.title} description={g.description} />
       <div className="article">
         <ProseBlocks blocks={g.blocks} />
+        <p className="mb-4 leading-relaxed">
+          {g.resourceBuilder.before}{" "}
+          <a
+            href={GITHUB_PRETEXT_BUILDER}
+            className="text-emerald-700 underline-offset-4 hover:underline dark:text-emerald-400"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {g.resourceBuilder.linkLabel}
+          </a>
+          {g.resourceBuilder.after}
+        </p>
         <p className="mb-4 leading-relaxed">
           {g.footerLinks.before}{" "}
           <Link

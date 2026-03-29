@@ -1,3 +1,7 @@
+import {
+  ILLUSTRATED_MANUSCRIPT_DEMO_URL,
+  PRETEXT_BREAKER_DEMO_URL,
+} from "@/lib/site";
 import type { Messages } from "../types";
 
 export const zh: Messages = {
@@ -41,6 +45,8 @@ export const zh: Messages = {
       "本站为社区整理的介绍与演示页面，并非 Pretext 官方站点。库作者为 Cheng Lou，源码以 MIT 许可发布。",
     githubLabel: "GitHub：chenglou/pretext",
     npmLabel: "npm：@chenglou/pretext",
+    resourcesTitle: "资源",
+    pretextBuilderLabel: "pretext-builder（社区文档与 Cursor 技能）",
   },
   home: {
     title: "多行文本测量，不必再碰 DOM",
@@ -101,6 +107,12 @@ export const zh: Messages = {
         text: "安装：npm install @chenglou/pretext。官方 README 与源码见 GitHub 仓库；亦可访问作者提供的在线演示（与本站独立）。",
       },
     ],
+    resourceBuilder: {
+      before: "社区资源",
+      linkLabel: "Cactusinhand/pretext-builder",
+      after:
+        "：快速上手、布局模式对照表、以及 document.fonts.ready 等实践说明（第三方整理，非 Pretext 官方仓库）。",
+    },
     footerLinks: {
       before: "使用上的限制（字体名、white-space 行为等）见",
       caveats: "注意事项",
@@ -221,9 +233,24 @@ for (;;) {
   demosIndex: {
     title: "交互演示",
     description:
-      "以下示例均在浏览器中运行 @chenglou/pretext，可直接改动文案与参数观察结果。",
+      "本站内嵌示例可现场改参数；另收录社区在线演示（新标签页打开）。",
     openDemo: "打开演示 →",
+    openExternalDemo: "在新标签页打开 →",
     items: [
+      {
+        href: PRETEXT_BREAKER_DEMO_URL,
+        title: "Pretext Breaker",
+        desc: "打砖块玩法：文字墙随球与挡板碰撞实时重排，展示 Pretext 动态断行与排版。",
+        coverSrc: "/demos/pretext-breaker-cover.png",
+        featured: true,
+      },
+      {
+        href: ILLUSTRATED_MANUSCRIPT_DEMO_URL,
+        title: "Illustrated Manuscript",
+        desc: "仿中世纪抄本视觉：羊皮纸底色、哥特体与装饰首字母，互动叙事文本（Neither/Nor 作品）。",
+        coverSrc: "/demos/illustrated-manuscript-cover.png",
+        featured: true,
+      },
       {
         href: "/demos/measure",
         title: "测高与行数",

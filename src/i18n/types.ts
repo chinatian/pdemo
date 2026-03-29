@@ -26,6 +26,8 @@ export type Messages = {
     disclaimer: string;
     githubLabel: string;
     npmLabel: string;
+    resourcesTitle: string;
+    pretextBuilderLabel: string;
   };
   home: {
     title: string;
@@ -45,6 +47,11 @@ export type Messages = {
     title: string;
     description: string;
     blocks: ProseBlock[];
+    resourceBuilder: {
+      before: string;
+      linkLabel: string;
+      after: string;
+    };
     footerLinks: {
       before: string;
       caveats: string;
@@ -67,7 +74,16 @@ export type Messages = {
     title: string;
     description: string;
     openDemo: string;
-    items: { href: string; title: string; desc: string }[];
+    openExternalDemo: string;
+    items: {
+      href: string;
+      title: string;
+      desc: string;
+      /** Public path e.g. `/demos/foo.png` */
+      coverSrc?: string;
+      /** Wider card on `sm+` when true */
+      featured?: boolean;
+    }[];
   };
   demos: {
     breadcrumb: string;

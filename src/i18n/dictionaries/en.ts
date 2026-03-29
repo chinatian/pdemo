@@ -1,3 +1,7 @@
+import {
+  ILLUSTRATED_MANUSCRIPT_DEMO_URL,
+  PRETEXT_BREAKER_DEMO_URL,
+} from "@/lib/site";
 import type { Messages } from "../types";
 
 export const en: Messages = {
@@ -41,6 +45,8 @@ export const en: Messages = {
       "This site is an independent community guide and demo collection—not an official Pretext site. Library by Cheng Lou, MIT licensed.",
     githubLabel: "GitHub: chenglou/pretext",
     npmLabel: "npm: @chenglou/pretext",
+    resourcesTitle: "Resources",
+    pretextBuilderLabel: "pretext-builder (community docs & Cursor skill)",
   },
   home: {
     title: "Measure multiline text without touching the DOM",
@@ -101,6 +107,12 @@ export const en: Messages = {
         text: "Install: npm install @chenglou/pretext. Upstream README and source live on GitHub; the author also hosts demos elsewhere.",
       },
     ],
+    resourceBuilder: {
+      before: "Community resource",
+      linkLabel: "Cactusinhand/pretext-builder",
+      after:
+        " on GitHub: quick start, a layout-pattern cheat sheet, and practical notes such as waiting for document.fonts.ready (third-party, not an official Pretext repo).",
+    },
     footerLinks: {
       before: "For limitations (font names, white-space behavior, etc.), see",
       caveats: "Caveats",
@@ -222,9 +234,24 @@ for (;;) {
   demosIndex: {
     title: "Live demos",
     description:
-      "These examples run @chenglou/pretext in the browser—edit text and sliders to see results.",
+      "Embedded examples you can tweak here, plus external demos that open in a new tab.",
     openDemo: "Open demo →",
+    openExternalDemo: "Open in new tab →",
     items: [
+      {
+        href: PRETEXT_BREAKER_DEMO_URL,
+        title: "Pretext Breaker",
+        desc: "Breakout-style game: the text wall recomposes as the ball and paddle collide—dynamic layout with Pretext.",
+        coverSrc: "/demos/pretext-breaker-cover.png",
+        featured: true,
+      },
+      {
+        href: ILLUSTRATED_MANUSCRIPT_DEMO_URL,
+        title: "Illustrated Manuscript",
+        desc: "Parchment-like page with blackletter type and an ornate drop cap—interactive narrative by Neither/Nor (e.g. click for fire).",
+        coverSrc: "/demos/illustrated-manuscript-cover.png",
+        featured: true,
+      },
       {
         href: "/demos/measure",
         title: "Height & line count",
