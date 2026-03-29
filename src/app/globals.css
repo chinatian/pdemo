@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.article {
+  @apply text-base leading-relaxed text-zinc-700 dark:text-zinc-300;
+}
+
+.article p {
+  @apply mb-4;
+}
+
+.article h2 {
+  @apply mt-10 text-xl font-semibold tracking-tight text-zinc-900 first:mt-0 dark:text-zinc-50;
+}
+
+.article h3 {
+  @apply mt-8 text-lg font-semibold text-zinc-900 dark:text-zinc-50;
+}
+
+.article ul {
+  @apply mb-4 list-disc space-y-1 pl-6;
+}
+
+.article ol {
+  @apply mb-4 list-decimal space-y-1 pl-6;
+}
+
+.article a {
+  @apply text-emerald-700 underline-offset-4 hover:underline dark:text-emerald-400;
+}
+
+.article code {
+  @apply rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-[0.875em] text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200;
+}
+
+.article pre {
+  @apply mb-4 overflow-x-auto rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900/50;
+}
+
+.article pre code {
+  @apply bg-transparent p-0 text-inherit;
+}
