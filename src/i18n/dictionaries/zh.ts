@@ -6,12 +6,14 @@ import type { Messages } from "../types";
 
 export const zh: Messages = {
   meta: {
-    siteName: "Pretext 指南",
-    titleSuffix: "Pretext 指南",
+    siteName: "pretextonline",
+    headerBrand: "PretextOnline",
+    titleSuffix: "pretextonline",
     defaultDescription:
       "介绍 Pretext（@chenglou/pretext）：无需 DOM 测量即可计算多行文本高度与断行，支持 Canvas 渲染与虚拟列表等场景。含 API 说明与在线演示。",
     defaultOgLocale: "zh_CN",
     keywords: [
+      "pretextonline",
       "Pretext",
       "chenglou",
       "文本测量",
@@ -25,7 +27,7 @@ export const zh: Messages = {
     twitterDescription:
       "无需 DOM reflow 的多行文本测量与排版库，含在线演示与 API 说明。",
     jsonLdSiteDescription:
-      "Pretext 多行文本测量与排版库的中文介绍、API 说明与交互演示。",
+      "pretextonline：Pretext 多行文本测量与排版库的中文介绍、API 说明与交互演示。",
   },
   nav: {
     home: "首页",
@@ -63,7 +65,7 @@ export const zh: Messages = {
       "多语言、emoji、混排方向；可选 pre-wrap 语义；并提供逐行 API 供 Canvas / 变宽排版使用。",
     colOpenTitle: "开源",
     colOpenBody:
-      "MIT 许可，仓库 chenglou/pretext。本站 Pretext 指南为独立整理站点。",
+      "MIT 许可，仓库 chenglou/pretext。本站 pretextonline 为独立整理站点。",
     colOpenLink: "chenglou/pretext",
   },
   guide: {

@@ -6,12 +6,14 @@ import type { Messages } from "../types";
 
 export const en: Messages = {
   meta: {
-    siteName: "Pretext Guide",
-    titleSuffix: "Pretext Guide",
+    siteName: "pretextonline",
+    headerBrand: "PretextOnline",
+    titleSuffix: "pretextonline",
     defaultDescription:
       "Pretext (@chenglou/pretext): multiline text measurement and line breaking without DOM reads—ideal for Canvas, virtualized lists, and preventing layout shift. Includes API notes and live demos.",
     defaultOgLocale: "en_US",
     keywords: [
+      "pretextonline",
       "Pretext",
       "chenglou",
       "text measurement",
@@ -25,7 +27,7 @@ export const en: Messages = {
     twitterDescription:
       "Multiline text measurement without DOM reflow—live demos and API overview.",
     jsonLdSiteDescription:
-      "Introduction, API reference, and interactive demos for the Pretext multiline text layout library.",
+      "pretextonline — introduction, API reference, and interactive demos for the Pretext multiline text layout library.",
   },
   nav: {
     home: "Home",
@@ -63,7 +65,7 @@ export const en: Messages = {
       "Many languages, emoji, mixed bidi; optional pre-wrap; line-by-line APIs for Canvas and ragged widths.",
     colOpenTitle: "Open source",
     colOpenBody:
-      "MIT licensed at chenglou/pretext. This Pretext Guide site is maintained separately.",
+      "MIT licensed at chenglou/pretext. pretextonline is maintained separately.",
     colOpenLink: "chenglou/pretext",
   },
   guide: {

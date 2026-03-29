@@ -13,6 +13,8 @@ export type ProseBlock =
 export type Messages = {
   meta: {
     siteName: string;
+    /** Logo / header wordmark (e.g. PretextOnline) */
+    headerBrand: string;
     titleSuffix: string;
     defaultDescription: string;
     defaultOgLocale: string;

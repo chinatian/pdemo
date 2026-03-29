@@ -7,10 +7,10 @@ export function JsonLd() {
     "@graph": [
       {
         "@type": "WebSite",
-        name: "Pretext Guide / Pretext 指南",
+        name: "pretextonline",
         url,
         description:
-          "Bilingual guide and live demos for Pretext: multiline text measurement and layout without DOM reflow (中文 / English).",
+          "pretextonline — bilingual guide and live demos for Pretext: multiline text measurement and layout without DOM reflow (中文 / English).",
         inLanguage: ["zh-CN", "en"],
       },
       {

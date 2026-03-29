@@ -27,7 +27,7 @@ export function SiteHeader({
           href={`/${locale}`}
           className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-50"
         >
-          {dict.meta.siteName}
+          {dict.meta.headerBrand}
         </Link>
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <nav
