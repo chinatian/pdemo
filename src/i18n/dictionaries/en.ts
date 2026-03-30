@@ -321,6 +321,13 @@ for (;;) {
         featured: true,
       },
       {
+        href: "https://notes.designtips.today/text-with-love",
+        title: "Text, with Love",
+        desc: "Poetic text-and-flower canvas experience inspired by The Book of Tea.",
+        coverSrc: "/demos/text-with-love-cover.png",
+        featured: true,
+      },
+      {
         href: "/demos/measure",
         title: "Height & line count",
         desc: "prepare + layout: change width and line-height, read total height and line count.",

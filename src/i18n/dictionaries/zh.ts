@@ -326,6 +326,13 @@ for (;;) {
         featured: true,
       },
       {
+        href: "https://notes.designtips.today/text-with-love",
+        title: "Text, with Love",
+        desc: "诗性文字与花朵互动的画布作品，文本取材于《茶之书》。",
+        coverSrc: "/demos/text-with-love-cover.png",
+        featured: true,
+      },
+      {
         href: "/demos/measure",
         title: "测高与行数",
         desc: "prepare + layout：调节宽度与行高，查看总高度与行数。",
