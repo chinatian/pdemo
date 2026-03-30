@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PageIntro } from "@/components/PageIntro";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { canonicalUrl, hreflangAlternates } from "@/lib/site";
+import { canonicalUrl, getSiteUrl, hreflangAlternates } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -30,6 +30,7 @@ export default async function DemosIndexPage({ params }: Props) {
   const locale: Locale = isLocale(raw) ? raw : defaultLocale;
   const dict = await getDictionary(locale);
   const d = dict.demosIndex;
+  const base = getSiteUrl().origin;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
@@ -38,6 +39,9 @@ export default async function DemosIndexPage({ params }: Props) {
         {d.items.map((item, index) => {
           const external = item.href.startsWith("http");
           const href = external ? item.href : `/${locale}${item.href}`;
+          const shareUrl = external ? item.href : `${base}/${locale}${item.href}`;
+          const xShareHref = `https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(item.title)}`;
+          const fbShareHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
           const cta = external ? d.openExternalDemo : d.openDemo;
 
           const inner = (
@@ -61,9 +65,41 @@ export default async function DemosIndexPage({ params }: Props) {
                 <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {item.desc}
                 </p>
-                <span className="mt-4 inline-block text-sm font-medium text-emerald-700 dark:text-emerald-400">
-                  {cta}
-                </span>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  {external ? (
+                    <a
+                      href={href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="text-sm font-medium text-emerald-700 dark:text-emerald-400"
+                    >
+                      {cta}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      className="text-sm font-medium text-emerald-700 dark:text-emerald-400"
+                    >
+                      {cta}
+                    </Link>
+                  )}
+                  <a
+                    href={xShareHref}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="text-xs text-zinc-500 underline-offset-4 hover:text-zinc-700 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
+                  >
+                    {d.shareX}
+                  </a>
+                  <a
+                    href={fbShareHref}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="text-xs text-zinc-500 underline-offset-4 hover:text-zinc-700 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
+                  >
+                    {d.shareFacebook}
+                  </a>
+                </div>
               </div>
             </>
           );
@@ -73,20 +109,7 @@ export default async function DemosIndexPage({ params }: Props) {
               key={item.href}
               className={item.featured ? "sm:col-span-2" : undefined}
             >
-              {external ? (
-                <a
-                  href={href}
-                  className={cardClassName}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {inner}
-                </a>
-              ) : (
-                <Link href={href} className={cardClassName}>
-                  {inner}
-                </Link>
-              )}
+              <article className={cardClassName}>{inner}</article>
             </li>
           );
         })}

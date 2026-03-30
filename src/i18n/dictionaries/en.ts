@@ -305,6 +305,8 @@ for (;;) {
       "Embedded examples you can tweak here, plus external demos that open in a new tab.",
     openDemo: "Open demo →",
     openExternalDemo: "Open in new tab →",
+    shareX: "Share on X",
+    shareFacebook: "Share on Facebook",
     items: [
       {
         href: PRETEXT_BREAKER_DEMO_URL,

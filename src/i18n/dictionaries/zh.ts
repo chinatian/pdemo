@@ -310,6 +310,8 @@ for (;;) {
       "本站内嵌示例可现场改参数；另收录社区在线演示（新标签页打开）。",
     openDemo: "打开演示 →",
     openExternalDemo: "在新标签页打开 →",
+    shareX: "分享到 X",
+    shareFacebook: "分享到 Facebook",
     items: [
       {
         href: PRETEXT_BREAKER_DEMO_URL,

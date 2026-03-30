@@ -88,6 +88,8 @@ export type Messages = {
     description: string;
     openDemo: string;
     openExternalDemo: string;
+    shareX: string;
+    shareFacebook: string;
     items: {
       href: string;
       title: string;
