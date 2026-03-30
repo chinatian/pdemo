@@ -22,7 +22,11 @@ export type Messages = {
     twitterDescription: string;
     jsonLdSiteDescription: string;
   };
-  nav: Record<NavKey, string> & { aria: string };
+  nav: Record<NavKey, string> & {
+    aria: string;
+    menuOpen: string;
+    menuClose: string;
+  };
   langSwitch: { label: string; toEn: string; toZh: string };
   footer: {
     disclaimer: string;
@@ -34,6 +38,13 @@ export type Messages = {
   home: {
     title: string;
     description: string;
+    /** Liquid text wall hero (home only): SEO + dense keyword pool for Canvas wall */
+    heroLiquid: {
+      ariaLabel: string;
+      subtitle: string;
+      seoText: string;
+      wallKeywords: string[];
+    };
     ctaDemos: string;
     ctaGuide: string;
     ctaApi: string;
@@ -93,6 +104,7 @@ export type Messages = {
     lines: { title: string; description: string };
     preWrap: { title: string; description: string };
     flow: { title: string; description: string };
+    editor: { title: string; description: string };
   };
   demoUi: {
     textLabel: string;
@@ -110,12 +122,15 @@ export type Messages = {
     flowNarrowLines: string;
     flowFullWidth: string;
     flowNarrowWidth: string;
+    editorPreviewTitle: string;
+    editorStatsFmt: string;
   };
   demoSamples: {
     measure: string;
     lines: string;
     preWrap: string;
     flow: string;
+    editor: string;
   };
 };
 

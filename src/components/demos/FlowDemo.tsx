@@ -1,34 +1,11 @@
 "use client";
 
 import {
-  layoutNextLine,
-  prepareWithSegments,
-  type LayoutCursor,
-  type LayoutLine,
-} from "@chenglou/pretext";
-import { useMemo, useState } from "react";
+  useFlowLines,
+  usePreparedSegments,
+} from "./usePretextLayout";
+import { useState } from "react";
 import { useLocaleContext } from "@/components/LocaleProvider";
-import { DEMO_FONT } from "@/lib/site";
-
-function collectLines(
-  prepared: ReturnType<typeof prepareWithSegments>,
-  narrowUntilLine: number,
-  narrowWidth: number,
-  fullWidth: number,
-): LayoutLine[] {
-  const lines: LayoutLine[] = [];
-  let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 };
-  let lineIndex = 0;
-  while (true) {
-    const w = lineIndex < narrowUntilLine ? narrowWidth : fullWidth;
-    const line = layoutNextLine(prepared, cursor, w);
-    if (line === null) break;
-    lines.push(line);
-    cursor = line.end;
-    lineIndex += 1;
-  }
-  return lines;
-}
 
 function FlowDemo() {
   const { messages: dict } = useLocaleContext();
@@ -41,15 +18,8 @@ function FlowDemo() {
   const maxNarrow = Math.max(120, fullWidth - 40);
   const effectiveNarrow = Math.min(narrowWidth, maxNarrow);
 
-  const prepared = useMemo(
-    () => prepareWithSegments(text, DEMO_FONT),
-    [text],
-  );
-
-  const lines = useMemo(
-    () => collectLines(prepared, narrowLines, effectiveNarrow, fullWidth),
-    [prepared, narrowLines, effectiveNarrow, fullWidth],
-  );
+  const prepared = usePreparedSegments(text);
+  const lines = useFlowLines(prepared, narrowLines, effectiveNarrow, fullWidth);
 
   const headerText = dict.demoUi.flowHeaderFmt
     .replace("{n}", String(narrowLines))

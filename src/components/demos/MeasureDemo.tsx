@@ -1,9 +1,8 @@
 "use client";
 
-import { layout, prepare } from "@chenglou/pretext";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useLocaleContext } from "@/components/LocaleProvider";
-import { DEMO_FONT } from "@/lib/site";
+import { useMeasuredLayout, usePreparedText } from "./usePretextLayout";
 
 function MeasureDemo() {
   const { messages: dict } = useLocaleContext();
@@ -11,11 +10,8 @@ function MeasureDemo() {
   const [lineHeight, setLineHeight] = useState(24);
   const [text, setText] = useState(() => dict.demoSamples.measure);
 
-  const prepared = useMemo(() => prepare(text, DEMO_FONT), [text]);
-  const { height, lineCount } = useMemo(
-    () => layout(prepared, maxWidth, lineHeight),
-    [prepared, maxWidth, lineHeight],
-  );
+  const prepared = usePreparedText(text);
+  const { height, lineCount } = useMeasuredLayout(prepared, maxWidth, lineHeight);
 
   const resultText = dict.demoUi.layoutResultFmt
     .replace("{h}", height.toFixed(1))

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LiquidTextWallHero } from "@/components/home/LiquidTextWallHero";
 import { PageIntro } from "@/components/PageIntro";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -28,8 +29,10 @@ export default async function HomePage({ params }: Props) {
   const h = dict.home;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
-      <PageIntro title={h.title} description={h.description} />
+    <>
+      <LiquidTextWallHero dict={dict} />
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      <PageIntro description={h.description} />
       <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
         <Link
           href={`/${locale}/demos`}
@@ -86,5 +89,6 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
     </div>
+    </>
   );
 }

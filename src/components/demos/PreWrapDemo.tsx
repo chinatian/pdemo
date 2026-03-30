@@ -1,9 +1,8 @@
 "use client";
 
-import { layoutWithLines, prepareWithSegments } from "@chenglou/pretext";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useLocaleContext } from "@/components/LocaleProvider";
-import { DEMO_FONT } from "@/lib/site";
+import { useLayoutLines, usePreparedSegments } from "./usePretextLayout";
 
 function PreWrapDemo() {
   const { messages: dict } = useLocaleContext();
@@ -11,14 +10,8 @@ function PreWrapDemo() {
   const [lineHeight, setLineHeight] = useState(24);
   const [text, setText] = useState(() => dict.demoSamples.preWrap);
 
-  const prepared = useMemo(
-    () => prepareWithSegments(text, DEMO_FONT, { whiteSpace: "pre-wrap" }),
-    [text],
-  );
-  const result = useMemo(
-    () => layoutWithLines(prepared, maxWidth, lineHeight),
-    [prepared, maxWidth, lineHeight],
-  );
+  const prepared = usePreparedSegments(text, { whiteSpace: "pre-wrap" });
+  const result = useLayoutLines(prepared, maxWidth, lineHeight);
 
   return (
     <div className="space-y-6 rounded-xl border border-zinc-200 bg-zinc-50/50 p-6 dark:border-zinc-800 dark:bg-zinc-900/30">

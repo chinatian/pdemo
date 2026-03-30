@@ -1,9 +1,8 @@
 "use client";
 
-import { layoutWithLines, prepareWithSegments } from "@chenglou/pretext";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useLocaleContext } from "@/components/LocaleProvider";
-import { DEMO_FONT } from "@/lib/site";
+import { useLayoutLines, usePreparedSegments } from "./usePretextLayout";
 
 function LinesDemo() {
   const { messages: dict } = useLocaleContext();
@@ -11,14 +10,8 @@ function LinesDemo() {
   const [lineHeight, setLineHeight] = useState(26);
   const [text, setText] = useState(() => dict.demoSamples.lines);
 
-  const prepared = useMemo(
-    () => prepareWithSegments(text, DEMO_FONT),
-    [text],
-  );
-  const result = useMemo(
-    () => layoutWithLines(prepared, maxWidth, lineHeight),
-    [prepared, maxWidth, lineHeight],
-  );
+  const prepared = usePreparedSegments(text);
+  const result = useLayoutLines(prepared, maxWidth, lineHeight);
 
   const footer = dict.demoUi.linesTotalFmt
     .replace("{n}", String(result.lineCount))

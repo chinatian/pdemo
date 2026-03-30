@@ -28,3 +28,8 @@ export const FlowDemo = dynamic(() => import("./FlowDemo"), {
   ssr: false,
   loading: () => pulse,
 });
+
+export const EditorDemo = dynamic(() => import("./EditorDemo"), {
+  ssr: false,
+  loading: () => pulse,
+});
