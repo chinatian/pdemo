@@ -354,6 +354,11 @@ for (;;) {
         title: "Simple text editor",
         desc: "A tiny pre-wrap editor powered by Pretext with live line layout preview.",
       },
+      {
+        href: "/demos/clock",
+        title: "Dense glyph clock",
+        desc: "Hours, minutes, and seconds as a 密-filled dot matrix; Pretext measures the full block height.",
+      },
     ],
   },
   demos: {
@@ -383,6 +388,11 @@ for (;;) {
       description:
         "Type freely, then let Pretext lay out pre-wrap lines in real time under your selected width and line height.",
     },
+    clock: {
+      title: "Dense glyph clock",
+      description:
+        "Each digit is a 5×3 grid of the Han character 密 (dense). prepare + layout report total height under pre-wrap.",
+    },
   },
   demoUi: {
     textLabel: "Text",
@@ -403,6 +413,9 @@ for (;;) {
     flowNarrowWidth: "Narrow width (px)",
     editorPreviewTitle: "Preview (Pretext)",
     editorStatsFmt: "{n} lines, total height {h} px.",
+    clockHint:
+      "Five rows by three full-width cells per digit, with two spaces between symbols. Colons are two dots. When you change line height, layout()’s total height should match line height × line count.",
+    clockPretextFmt: "Total height {h} px, {n} lines",
   },
   demoSamples: {
     measure:

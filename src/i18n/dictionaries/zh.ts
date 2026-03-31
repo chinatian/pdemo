@@ -359,6 +359,11 @@ for (;;) {
         title: "简单文本编辑器",
         desc: "一个基于 Pretext 的 pre-wrap 小编辑器，实时预览分行布局。",
       },
+      {
+        href: "/demos/clock",
+        title: "密集字模时钟",
+        desc: "用「密」字拼成数码管显示时、分、秒，Pretext 计算整块高度。",
+      },
     ],
   },
   demos: {
@@ -388,6 +393,11 @@ for (;;) {
       description:
         "输入文本后，Pretext 会按你设置的宽度与行高实时计算 pre-wrap 分行结果。",
     },
+    clock: {
+      title: "密集字模时钟",
+      description:
+        "时、分、秒由全角「密」字密排成点阵；prepare + layout 在 pre-wrap 下测量整块文本高度。",
+    },
   },
   demoUi: {
     textLabel: "文本",
@@ -408,6 +418,9 @@ for (;;) {
     flowNarrowWidth: "窄宽（px）",
     editorPreviewTitle: "预览（Pretext）",
     editorStatsFmt: "共 {n} 行，总高度 {h} px。",
+    clockHint:
+      "数字为 5 行×3 列的「密」字点阵，符号间留两格空格；冒号为上下两点。调节行高时，layout() 的总高度应与视觉行高×行数一致。",
+    clockPretextFmt: "总高度 {h} px，共 {n} 行",
   },
   demoSamples: {
     measure:

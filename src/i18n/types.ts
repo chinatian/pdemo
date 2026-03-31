@@ -107,6 +107,7 @@ export type Messages = {
     preWrap: { title: string; description: string };
     flow: { title: string; description: string };
     editor: { title: string; description: string };
+    clock: { title: string; description: string };
   };
   demoUi: {
     textLabel: string;
@@ -126,6 +127,8 @@ export type Messages = {
     flowNarrowWidth: string;
     editorPreviewTitle: string;
     editorStatsFmt: string;
+    clockHint: string;
+    clockPretextFmt: string;
   };
   demoSamples: {
     measure: string;

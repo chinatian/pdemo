@@ -33,3 +33,8 @@ export const EditorDemo = dynamic(() => import("./EditorDemo"), {
   ssr: false,
   loading: () => pulse,
 });
+
+export const ClockDemo = dynamic(() => import("./ClockDemo"), {
+  ssr: false,
+  loading: () => pulse,
+});

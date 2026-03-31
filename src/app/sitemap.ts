@@ -12,6 +12,8 @@ const paths = [
   "/demos/lines",
   "/demos/pre-wrap",
   "/demos/flow",
+  "/demos/editor",
+  "/demos/clock",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
